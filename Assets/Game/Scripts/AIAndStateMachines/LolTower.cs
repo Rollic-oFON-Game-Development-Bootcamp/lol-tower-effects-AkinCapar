@@ -14,6 +14,8 @@ public enum TowerStates
 public class LolTower : MonoBehaviour
 {
     [SerializeField] private Transform towerTop;
+    [SerializeField] private ParticleSystem laserFX;
+    [SerializeField] Vector3 laserPos;
 
     [ReadOnly] public TowerStates currentState;
 
@@ -147,6 +149,16 @@ public class LolTower : MonoBehaviour
         }
         //State Exit
 
+    }
+
+    public void LaserFX()
+    {
+        Instantiate(laserFX, transform.position, Quaternion.identity);
+        laserPos = transform.position;
+        laserPos.x = Mathf.Lerp(transform.position.x, currentTargetMinion.transform.position.x, .5f);
+        laserPos.y = Mathf.Lerp(transform.position.y, currentTargetMinion.transform.position.y, .5f);
+        laserPos.z = Mathf.Lerp(transform.position.z, currentTargetMinion.transform.position.z, .5f);
+        Destroy(laserFX, 1.5f);
     }
 
     private IEnumerator AttackEnemy()

@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   nav: {fileID: 7787676271771098993}
+  explosionFX: {fileID: 0}
   IsDead: 0
 --- !u!54 &7787676271771098992
 Rigidbody:

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ public class Minion : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
     [SerializeField] private NavMeshAgent nav;
+    [SerializeField] private ParticleSystem explosionFX;
 
     private int currentHealth;
     public bool IsDead;
@@ -38,14 +40,23 @@ public class Minion : MonoBehaviour
         if (currentHealth <= 0)
         {
             IsDead = true;
+            FindObjectOfType<LolTower>().LaserFX();
+            ExplosionFX();
             Die();
         }
 
         return IsDead;
     }
 
+    private void ExplosionFX()
+    {
+        Instantiate(explosionFX, transform.position, Quaternion.identity);
+        Destroy(explosionFX, 3f);
+    }
+
     private void Die()
     {
         Destroy(gameObject);
     }
+
 }
